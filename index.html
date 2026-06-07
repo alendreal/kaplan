@@ -229,9 +229,31 @@
     .divider {
       position: relative;
       z-index: 1;
-      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0.4rem 4rem;
+    }
+
+    .divider::before {
+      content: '';
+      flex: 1;
       height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
+      background: linear-gradient(to right, transparent, rgba(200,169,110,0.22));
+    }
+
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to left, transparent, rgba(200,169,110,0.22));
+    }
+
+    .div-icon {
+      font-size: 0.38rem;
+      color: rgba(200,169,110,0.38);
+      padding: 0 1.6rem;
+      letter-spacing: 0.75rem;
+      flex-shrink: 0;
     }
 
     /* ── CONTACT ── */
@@ -415,106 +437,54 @@
 
     .about-layout {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 1fr 1.6fr;
       gap: 4.5rem;
-      align-items: start;
+      align-items: center;
       margin-top: 3rem;
     }
 
-    /* Gallery */
-    .about-gallery {
+    /* Single blended photo */
+    .about-photo {
       position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-    }
-
-    /* Decorative corner marks */
-    .about-gallery::before,
-    .about-gallery::after {
-      content: '';
-      position: absolute;
-      width: 20px; height: 20px;
-      border-color: var(--accent);
-      border-style: solid;
-      opacity: 0.35;
-      z-index: 3;
-      pointer-events: none;
-    }
-    .about-gallery::before { top: -8px; left: -8px;   border-width: 1px 0 0 1px; }
-    .about-gallery::after  { bottom: -8px; right: -8px; border-width: 0 1px 1px 0; }
-
-    .gp {
-      position: relative;
-      overflow: hidden;
-      background: #181410;
-      cursor: default;
-    }
-
-    .gp:nth-child(-n+3) { height: 155px; }
-    .gp:nth-child(n+4)  { height: 200px; }
-
-    .gp img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.65s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease;
-      filter: brightness(0.82) saturate(0.88);
-    }
-
-    .gp::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: rgba(200,169,110,0.1);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .gp-no {
-      position: absolute; inset: 0;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 0.58rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(200,169,110,0.18);
-      border: 1px solid rgba(200,169,110,0.07);
-      z-index: 0;
     }
 
-    .gp:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.05); }
-    .gp:hover::after { opacity: 1; }
+    .about-photo img {
+      width: 100%;
+      max-width: 340px;
+      height: 460px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(0.76) saturate(0.82) contrast(1.02);
+      -webkit-mask-image: radial-gradient(ellipse 80% 86% at 50% 44%, black 35%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 86% at 50% 44%, black 35%, transparent 100%);
+    }
+
+    .about-photo .ph-label {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(200,169,110,0.15);
+      pointer-events: none;
+    }
 
     /* About text */
-    .about-lead {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.3rem, 2vw, 1.7rem);
-      line-height: 1.5;
-      color: var(--text);
-      border-left: 1px solid var(--accent);
-      padding-left: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.88;
-    }
-
     .about-body {
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       color: var(--muted);
-      line-height: 1.95;
+      line-height: 2;
     }
-
-    .about-body p + p { margin-top: 1.1rem; }
 
     .about-body em {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-size: 1.08em;
       color: var(--text);
-      opacity: 0.72;
+      opacity: 0.75;
     }
 
     /* ── BOOKS ── */
@@ -603,9 +573,9 @@
       .hero-content { padding: 0 1.5rem 4rem; }
       .scroll-hint { right: 1.5rem; }
       #about { padding: 5rem 1.5rem 6rem; }
-      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .gp:nth-child(-n+3) { height: 120px; }
-      .gp:nth-child(n+4)  { height: 150px; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo img { max-width: 100%; height: 320px; }
+      .divider { padding: 0.4rem 1.5rem; }
       #contact { padding: 5rem 1.5rem 6rem; }
       .contact-form { grid-template-columns: 1fr; }
       .form-field.full { grid-column: 1; }
@@ -657,7 +627,7 @@
   </section>
 
 
-  <div class="divider"></div>
+  <div class="divider"><span class="div-icon">◆◆◆</span></div>
 
 
   <!-- ── ABOUT ── -->
@@ -672,62 +642,18 @@
       <div class="about-layout">
 
         <!--
-        ┌─────────────────────────────────────────────────┐
-        │  PHOTO GALLERY — how to manage in VS Code       │
-        │                                                 │
-        │  ADD a photo:                                   │
-        │    Copy any <div class="gp"> block below        │
-        │    and change src="about-X.jpg" to your file   │
-        │                                                 │
-        │  REMOVE a photo:                                │
-        │    Delete the entire <div class="gp">           │
-        │    block including the closing </div>           │
-        │                                                 │
-        │  All photo files must sit in the same           │
-        │  folder as index.html                           │
-        │  Supported: .jpg  .jpeg  .png  .webp            │
-        └─────────────────────────────────────────────────┘
+          YOUR PHOTO — replace about-1.jpg with your filename.
+          The image blends into the dark background automatically.
+          File must sit in the same folder as index.html.
         -->
-        <div class="about-gallery reveal">
-
-          <div class="gp">
-            <span class="gp-no">Photo 1</span>
-            <img src="about-1.jpg" alt="" loading="lazy" onerror="this.style.display='none'" />
-          </div>
-
-          <div class="gp">
-            <span class="gp-no">Photo 2</span>
-            <img src="about-2.jpg" alt="" loading="lazy" onerror="this.style.display='none'" />
-          </div>
-
-          <div class="gp">
-            <span class="gp-no">Photo 3</span>
-            <img src="about-3.jpg" alt="" loading="lazy" onerror="this.style.display='none'" />
-          </div>
-
-          <div class="gp">
-            <span class="gp-no">Photo 4</span>
-            <img src="about-4.jpg" alt="" loading="lazy" onerror="this.style.display='none'" />
-          </div>
-
-          <div class="gp">
-            <span class="gp-no">Photo 5</span>
-            <img src="about-5.jpg" alt="" loading="lazy" onerror="this.style.display='none'" />
-          </div>
-
-          <div class="gp">
-            <span class="gp-no">Photo 6</span>
-            <img src="about-6.jpg" alt="" loading="lazy" onerror="this.style.display='none'" />
-          </div>
-
+        <div class="about-photo reveal">
+          <span class="ph-label">about-1.jpg</span>
+          <img src="about-1.jpg" alt="" onerror="this.style.display='none'" />
         </div>
 
         <div class="about-text reveal reveal-delay">
-          <p class="about-lead">I keep my private life private, and take my security seriously — especially during these challenging times.</p>
           <div class="about-body">
-            <p>I am 25 years old and currently residing in Erbil. That's about how much I can tell you for now.</p>
-            <p>I urge you to find the most about me through other means — what I do, what I say, when I do both, and <em>why</em>. That is my little challenge for you.</p>
-            <p>Whether I am just another person or somebody important in this world is completely irrelevant. What's relevant is what it means for <em>you</em>.</p>
+            <p>I am 25 years old and I'm currently residing in Erbil. That's about how much I can tell you for now or on here. I keep my private life private, and take my security seriously, especially during these challenging times. I urge you to try to find the most about me through other means such as what I do, what I say, when I do both and <em>why</em>. That is my little challenge for you. Whether I am just another guy or somebody important in this world it is completely irrelevant, but what's relevant is what it means for you.</p>
           </div>
         </div>
 
@@ -736,7 +662,7 @@
   </section>
 
 
-  <div class="divider"></div>
+  <div class="divider"><span class="div-icon">◆◆◆</span></div>
 
 
   <!-- ── CONTACT ── -->
@@ -749,22 +675,23 @@
         <p class="section-sub">Make sure to state your request clearly. Response times may vary, please be patient.</p>
       </div>
 
-      <form class="contact-form reveal reveal-delay" id="contactForm" novalidate>
+      <form class="contact-form reveal reveal-delay" id="contactForm" name="contact" method="POST" data-netlify="true" novalidate>
+        <input type="hidden" name="form-name" value="contact" />
 
         <div class="form-field">
-          <input type="text" id="name" placeholder=" " autocomplete="name" required />
+          <input type="text" id="name" name="name" placeholder=" " autocomplete="name" required />
           <label for="name">Your Name</label>
           <span class="field-bar"></span>
         </div>
 
         <div class="form-field">
-          <input type="tel" id="phone" placeholder=" " autocomplete="tel" required />
+          <input type="tel" id="phone" name="phone" placeholder=" " autocomplete="tel" required />
           <label for="phone">Phone Number</label>
           <span class="field-bar"></span>
         </div>
 
         <div class="form-field full">
-          <textarea id="message" rows="5" placeholder=" " required></textarea>
+          <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
           <label for="message">Your Message</label>
           <span class="field-bar"></span>
         </div>
@@ -783,7 +710,7 @@
   </section>
 
 
-  <div class="divider"></div>
+  <div class="divider"><span class="div-icon">◆◆◆</span></div>
 
 
   <!-- ── BOOKS ── -->
@@ -814,119 +741,249 @@
 
 
   <script>
-    // Navbar scroll style
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
 
-    // Scroll reveal
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
+    // ── Smooth scroll for all anchor links ──
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        });
       });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => revealObserver.observe(el));
+    }
 
-    // Form submit
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
+    // ── Navbar scroll style ──
+    function initNav() {
+      const nav = document.getElementById('mainNav');
+      if (!nav) return;
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name    = document.getElementById('name').value.trim();
-      const phone   = document.getElementById('phone').value.trim();
-      const message = document.getElementById('message').value.trim();
+    // ── Scroll reveal ──
+    function initScrollReveal() {
+      const els = document.querySelectorAll('.reveal');
+      if (!els.length) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(el => observer.observe(el));
+    }
 
-      if (!name || !phone || !message) {
-        submitBtn.style.borderColor = '#b05a5a';
-        submitBtn.style.color       = '#b05a5a';
-        btnText.textContent         = 'Please fill all fields';
-        setTimeout(() => {
-          submitBtn.style.borderColor = '';
-          submitBtn.style.color       = '';
-          btnText.textContent         = 'Send Message';
-        }, 2500);
-        return;
-      }
+    // ── Contact form — submits to Netlify Forms ──
+    function initContactForm() {
+      const form      = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText   = document.getElementById('btnText');
+      if (!form || !submitBtn || !btnText) return;
 
-      // Success state
-      submitBtn.classList.add('sent');
-      btnText.textContent = 'Message Sent ✓';
-      submitBtn.querySelector('svg').style.display = 'none';
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-      setTimeout(() => {
-        form.reset();
-        submitBtn.classList.remove('sent');
-        btnText.textContent = 'Send Message';
-        submitBtn.querySelector('svg').style.display = '';
-      }, 3500);
-    });
-    // Constellation Web background
-    (function(){
-      const c   = document.getElementById('bgCanvas');
+        const nameVal    = (form.querySelector('[name="name"]')    || {}).value || '';
+        const phoneVal   = (form.querySelector('[name="phone"]')   || {}).value || '';
+        const messageVal = (form.querySelector('[name="message"]') || {}).value || '';
+
+        // Validation
+        if (!nameVal.trim() || !phoneVal.trim() || !messageVal.trim()) {
+          submitBtn.style.borderColor = '#b05a5a';
+          submitBtn.style.color       = '#b05a5a';
+          btnText.textContent         = 'Please fill all fields';
+          setTimeout(() => {
+            submitBtn.style.borderColor = '';
+            submitBtn.style.color       = '';
+            btnText.textContent         = 'Send Message';
+          }, 2500);
+          return;
+        }
+
+        // POST to Netlify Forms
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString()
+        })
+        .then(() => {
+          submitBtn.classList.add('sent');
+          btnText.textContent = 'Message Sent ✓';
+          const arrow = submitBtn.querySelector('svg');
+          if (arrow) arrow.style.display = 'none';
+          setTimeout(() => {
+            form.reset();
+            submitBtn.classList.remove('sent');
+            btnText.textContent = 'Send Message';
+            const arrowReset = submitBtn.querySelector('svg');
+            if (arrowReset) arrowReset.style.display = '';
+          }, 3500);
+        })
+        .catch(() => {
+          submitBtn.style.borderColor = '#b05a5a';
+          submitBtn.style.color       = '#b05a5a';
+          btnText.textContent         = 'Failed — try again';
+          setTimeout(() => {
+            submitBtn.style.borderColor = '';
+            submitBtn.style.color       = '';
+            btnText.textContent         = 'Send Message';
+          }, 3000);
+        });
+      });
+    }
+
+    // ── Constellation background — premium ──
+    function initConstellation() {
+      const c = document.getElementById('bgCanvas');
+      if (!c) return;
       const ctx = c.getContext('2d');
-      let W, H, pts;
+      let W, H, layers;
+      const mouse = { x: 0, y: 0 };
+
+      function makeLayer(count, speed, size, alpha, depth) {
+        return Array.from({ length: count }, () => ({
+          x:       Math.random() * W,
+          y:       Math.random() * H,
+          vx:      (Math.random() - 0.5) * speed,
+          vy:      (Math.random() - 0.5) * speed,
+          r:       Math.random() * size + size * 0.4,
+          a:       Math.random() * alpha * 0.5 + alpha * 0.55,
+          hue:     Math.random(),
+          pulse:   0,
+          pulsing: false,
+          depth
+        }));
+      }
 
       function resize() {
         W = c.width  = window.innerWidth;
         H = c.height = window.innerHeight;
-        const count = Math.max(Math.floor((W * H) / 13000), 45);
-        pts = Array.from({length: count}, () => ({
-          x:  Math.random() * W,
-          y:  Math.random() * H,
-          vx: (Math.random() - 0.5) * 0.45,
-          vy: (Math.random() - 0.5) * 0.45
-        }));
+        const area = W * H;
+        layers = [
+          makeLayer(Math.max(Math.floor(area / 30000), 18), 0.14, 0.65, 0.20, 0.25),
+          makeLayer(Math.max(Math.floor(area / 18000), 26), 0.26, 1.05, 0.34, 0.55),
+          makeLayer(Math.max(Math.floor(area / 11000), 16), 0.42, 1.65, 0.50, 1.00),
+        ];
       }
 
-      window.addEventListener('resize', resize, { passive: true });
-      resize();
+      const DIST = [88, 138, 182];
 
-      const DIST = 160;
+      function schedulePulse() {
+        if (!layers) return;
+        const all = layers.flat();
+        const pt  = all[Math.floor(Math.random() * all.length)];
+        if (pt && !pt.pulsing) { pt.pulsing = true; pt.pulse = 0; }
+        setTimeout(schedulePulse, Math.random() * 650 + 280);
+      }
+
+      function ptColor(pt, alpha) {
+        const r = Math.round(190 + pt.hue * 16);
+        const g = Math.round(150 + pt.hue * 22);
+        const b = Math.round(85  + pt.hue * 30);
+        return `rgba(${r},${g},${b},${alpha})`;
+      }
 
       function frame() {
         ctx.clearRect(0, 0, W, H);
 
-        pts.forEach(p => {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0 || p.x > W) p.vx *= -1;
-          if (p.y < 0 || p.y > H) p.vy *= -1;
-        });
+        // Radial vignette — deepens edges
+        const vg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.72);
+        vg.addColorStop(0, 'rgba(0,0,0,0)');
+        vg.addColorStop(1, 'rgba(0,0,0,0.42)');
+        ctx.fillStyle = vg;
+        ctx.fillRect(0, 0, W, H);
 
-        ctx.lineWidth = 0.5;
-        for (let i = 0; i < pts.length; i++) {
-          for (let j = i + 1; j < pts.length; j++) {
-            const dx = pts[i].x - pts[j].x;
-            const dy = pts[i].y - pts[j].y;
-            const d  = Math.sqrt(dx * dx + dy * dy);
-            if (d < DIST) {
+        const mx = mouse.x / W - 0.5;
+        const my = mouse.y / H - 0.5;
+
+        layers.forEach((layer, li) => {
+          const maxDist  = DIST[li];
+          const parallax = li * 9;
+
+          layer.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > W) p.vx *= -1;
+            if (p.y < 0 || p.y > H) p.vy *= -1;
+
+            if (p.pulsing) {
+              p.pulse += 0.036;
+              if (p.pulse >= Math.PI) { p.pulsing = false; p.pulse = 0; }
+            }
+            const pb = p.pulsing ? Math.sin(p.pulse) : 0;
+
+            const ox = mx * parallax;
+            const oy = my * parallax;
+            const px = p.x + ox;
+            const py = p.y + oy;
+
+            // Double halo on pulse
+            if (pb > 0.08) {
               ctx.beginPath();
-              ctx.moveTo(pts[i].x, pts[i].y);
-              ctx.lineTo(pts[j].x, pts[j].y);
-              ctx.strokeStyle = `rgba(200,169,110,${0.22 * (1 - d / DIST)})`;
-              ctx.stroke();
+              ctx.arc(px, py, p.r * 5.5, 0, 6.28);
+              ctx.fillStyle = ptColor(p, pb * 0.035);
+              ctx.fill();
+              ctx.beginPath();
+              ctx.arc(px, py, p.r * 2.6, 0, 6.28);
+              ctx.fillStyle = ptColor(p, pb * 0.09);
+              ctx.fill();
+            }
+
+            // Core dot
+            ctx.beginPath();
+            ctx.arc(px, py, p.r + pb * p.r * 0.65, 0, 6.28);
+            ctx.fillStyle = ptColor(p, Math.min(1, p.a + pb * 0.45));
+            ctx.fill();
+          });
+
+          // Connecting lines
+          ctx.lineWidth = 0.22 + li * 0.17;
+          for (let i = 0; i < layer.length; i++) {
+            for (let j = i + 1; j < layer.length; j++) {
+              const ox = mx * parallax;
+              const oy = my * parallax;
+              const ax = layer[i].x + ox, ay = layer[i].y + oy;
+              const bx = layer[j].x + ox, by = layer[j].y + oy;
+              const dx = ax - bx, dy = ay - by;
+              const d  = Math.sqrt(dx * dx + dy * dy);
+              if (d < maxDist) {
+                ctx.beginPath();
+                ctx.moveTo(ax, ay);
+                ctx.lineTo(bx, by);
+                ctx.strokeStyle = ptColor(layer[i], 0.17 * (1 - d / maxDist) * (0.38 + li * 0.32));
+                ctx.stroke();
+              }
             }
           }
-        }
-
-        pts.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 1.5, 0, 6.28);
-          ctx.fillStyle = 'rgba(200,169,110,0.38)';
-          ctx.fill();
         });
 
         requestAnimationFrame(frame);
       }
 
+      window.addEventListener('resize', resize, { passive: true });
+      window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      }, { passive: true });
+
+      resize();
+      schedulePulse();
       frame();
-    })();
+    }
+
+    // ── Bootstrap ──
+    document.addEventListener('DOMContentLoaded', () => {
+      initSmoothScroll();
+      initNav();
+      initScrollReveal();
+      initContactForm();
+      initConstellation();
+    });
+
   </script>
 
 </body>
